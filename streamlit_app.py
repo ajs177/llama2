@@ -3,11 +3,11 @@ import replicate
 import os
 
 # App title
-st.set_page_config(page_title="🦙💬 Llama 2 Text Summarizer")
+st.set_page_config(page_title="🦜🔗 Resumen de Texto con Llama2")
 
 # Replicate Credentials
 with st.sidebar:
-    st.title('🦙💬 Llama 2 Text Summarizer')
+    st.title('🦜🔗 Resumen de Texto con Llama2')
     st.write('This text summarizer is created using the open-source Llama 2 LLM model from Meta.')
     if 'REPLICATE_API_TOKEN' in st.secrets:
         st.success('API key already provided!', icon='✅')
@@ -21,7 +21,7 @@ with st.sidebar:
     os.environ['REPLICATE_API_TOKEN'] = replicate_api
 
     st.subheader('Models and parameters')
-    selected_model = st.sidebar.selectbox('Choose a Llama2 model', ['Llama2-7B', 'Llama2-13B'], key='selected_model')
+    selected_model = st.sidebar.selectbox('Elige modelo Llama2', ['Llama2-7B', 'Llama2-13B'], key='selected_model')
     if selected_model == 'Llama2-7B':
         llm = 'a16z-infra/llama7b-v2-chat:4f0a4744c7295c024a1de15e1a63c880d3da035fa1f49bfd344fe076074c8eea'
     elif selected_model == 'Llama2-13B':
@@ -29,7 +29,6 @@ with st.sidebar:
     temperature = st.sidebar.slider('temperature', min_value=0.01, max_value=1.0, value=0.1, step=0.01)
     top_p = st.sidebar.slider('top_p', min_value=0.01, max_value=1.0, value=0.9, step=0.01)
     max_length = st.sidebar.slider('max_length', min_value=32, max_value=128, value=120, step=8)
-    st.markdown('📖 Learn how to build this app in this blog!')
 
 # Function for generating LLaMA2 response. Refactored from https://github.com/a16z-infra/llama2-chatbot
 def generate_llama2_summary(text_input):
@@ -39,8 +38,8 @@ def generate_llama2_summary(text_input):
     return output
 
 # User-provided text
-if text := st.text_area('Enter your text here:', disabled=not replicate_api):
-    with st.spinner("Summarizing..."):
+if text := st.text_area('Introduzca su texto:', disabled=not replicate_api):
+    with st.spinner("Resumiendo...⏳"):
         summary = generate_llama2_summary(text)
         placeholder = st.empty()
         full_summary = ''
