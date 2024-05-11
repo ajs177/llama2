@@ -8,7 +8,7 @@ st.set_page_config(page_title="🦜🔗 Resumen de Texto con Llama2")
 # Replicate Credentials
 with st.sidebar:
     st.title('🦜🔗 Resumen de Texto con Llama2')
-    st.write('This text summarizer is created using the open-source Llama 2 LLM model from Meta.')
+    st.write('Esta herramienta permite resumir textos con el modelo Llama 2 de Meta. Tenga en cuenta que ofrece un mayor rendimiento cuando el texto introducido está en inglés')
     if 'REPLICATE_API_TOKEN' in st.secrets:
         st.success('API key already provided!', icon='✅')
         replicate_api = st.secrets['REPLICATE_API_TOKEN']
