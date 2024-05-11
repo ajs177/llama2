@@ -25,12 +25,10 @@ with st.sidebar:
 
 # Function for generating LLaMA2 response. Refactored from https://github.com/a16z-infra/llama2-chatbot
 def generate_llama2_summary(text_input):
-    #output = replicate.run(llm, 
-                           #input={"prompt": f"Assistant: Please summarize the following text: '{text_input}'",
-                                  #"temperature":temperature, "top_p":top_p, "max_length":max_length, "repetition_penalty":1})
     output = replicate.run(llm, 
-                         input={"prompt": f"Summarize: '{text_input}'",
+                           input={"prompt": f"Assistant, summarize: '{text_input}'",
                                   "temperature":temperature, "top_p":top_p, "max_length":max_length, "repetition_penalty":1})
+   
     return output
 
 # User-provided text
