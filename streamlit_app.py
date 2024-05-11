@@ -28,8 +28,8 @@ def generate_llama2_summary(text_input):
     #output = replicate.run(llm, 
                            #input={"prompt": f"Assistant: Please summarize the following text: '{text_input}'",
                                   #"temperature":temperature, "top_p":top_p, "max_length":max_length, "repetition_penalty":1})
-                        output = replicate.run(llm, 
-                           input={"prompt": f"Summarize: '{text_input}'",
+    output = replicate.run(llm, 
+                         input={"prompt": f"Summarize: '{text_input}'",
                                   "temperature":temperature, "top_p":top_p, "max_length":max_length, "repetition_penalty":1})
     return output
 
