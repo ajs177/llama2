@@ -10,6 +10,7 @@ with st.sidebar:
     st.title('🦜🔗 Resumen de Texto')
     st.write('Esta herramienta permite resumir textos con el modelo Llama 2 de Meta. Tenga en cuenta que ofrece un mayor rendimiento cuando el texto introducido está en inglés')
 
+    replicate_api = st.secrets['REPLICATE_API_TOKEN']
     os.environ['REPLICATE_API_TOKEN'] = replicate_api
 
     st.subheader('Models and parameters')
