@@ -2,8 +2,9 @@ import streamlit as st
 import replicate
 import os
 
-# App title
-st.set_page_config(page_title="🦙💬 Llama 2 Text Summarizer")
+# Configuración de la página
+st.set_page_config(page_title='🦙💬 Aplicación de Resumen de Texto')
+st.title('🦙💬 Aplicación de Resumen de Texto')
 
 # Replicate Credentials
 with st.sidebar:
@@ -29,22 +30,28 @@ with st.sidebar:
     temperature = st.sidebar.slider('temperature', min_value=0.01, max_value=1.0, value=0.1, step=0.01)
     top_p = st.sidebar.slider('top_p', min_value=0.01, max_value=1.0, value=0.9, step=0.01)
     max_length = st.sidebar.slider('max_length', min_value=32, max_value=128, value=120, step=8)
-    st.markdown('📖 Learn how to build this app in this blog!')
 
-# Function for generating LLaMA2 response. Refactored from https://github.com/a16z-infra/llama2-chatbot
+# Function for generating LLaMA2 response.
 def generate_llama2_summary(text_input):
     output = replicate.run(llm, 
                            input={"prompt": f"Assistant: Please summarize the following text: '{text_input}'",
                                   "temperature":temperature, "top_p":top_p, "max_length":max_length, "repetition_penalty":1})
     return output
 
-# User-provided text
-if text := st.text_area('Enter your text here:', disabled=not replicate_api):
-    with st.spinner("Summarizing..."):
-        summary = generate_llama2_summary(text)
-        placeholder = st.empty()
-        full_summary = ''
-        for item in summary:
-            full_summary += item
-            placeholder.markdown(full_summary)
-        placeholder.markdown(full_summary)
+# Entrada de texto
+txt_input = st.text_area('Introduce tu texto', '', height=200)
+
+# Formulario para aceptar la entrada de texto del usuario para el resumen
+result = []
+with st.form('summarize_form', clear_on_submit=True):
+    submitted = st.form_submit_button('Enviar')
+    if submitted:
+        with st.spinner('Calculando...'):
+            summary = generate_llama2_summary(txt_input)
+            result.append(summary)
+
+# Muestra el resultado del resumen
+if len(result):
+    st.title('📝✅ Resultado del Resumen')
+    st.info(result[0])
+
